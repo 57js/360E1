@@ -49,6 +49,12 @@ def tx_list(commits):
 
     return transformation(commits[0]) + tx_list(commits[1:])
 
+def total_commits_kept(commits):
+    if len(commits) == 0:
+        return 0
+    else:
+        return 1 + total_commits_kept(commits[1:])
+
 
 if __name__ == "__main__":
     commits = [sample_input_generation() for x in range(0, 3)]
@@ -59,6 +65,12 @@ if __name__ == "__main__":
 
     commits = filter(commits)
 
-    print(commits)
+    lines_changed = total_lines_changed(commits)
+    commits_kept = total_commits_kept(commits)
+
+    print(f"Commits: {commits}")
+    print(f"Lines Changed: {lines_changed}")
+    print(f"Total Commits Kept: {commits_kept}")
+
 
 
